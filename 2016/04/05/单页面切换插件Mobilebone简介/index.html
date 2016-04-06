@@ -58,27 +58,21 @@
 
 
 <meta name="description" content="Mobilebone是国内大牛张旭鑫写的一个单页面切换插件，特点是轻量级，且效果也不错，最近的webAPP项目里用过，暂时没发现有什么坑，特此安利一下，顺便介绍简单用法。
-解决问题参考文档
-项目gitHub主页
-张旭鑫项目介绍
-MobileboneAPI文档">
+解决问题  移动端webAPP模拟原生应用的各类页面切换效果。
+推荐实践  作者在Mobilebone里提供了多种构造跳转页面的方式，甚至封装了ajax工具方法，以方便实现页面分步加载，但在我我的实践过程中发现还是用它的基本切换">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单页面切换插件Mobilebone简介">
 <meta property="og:url" content="http://yoursite.com/2016/04/05/单页面切换插件Mobilebone简介/index.html">
 <meta property="og:site_name" content="XiaosanSky'Blog">
 <meta property="og:description" content="Mobilebone是国内大牛张旭鑫写的一个单页面切换插件，特点是轻量级，且效果也不错，最近的webAPP项目里用过，暂时没发现有什么坑，特此安利一下，顺便介绍简单用法。
-解决问题参考文档
-项目gitHub主页
-张旭鑫项目介绍
-MobileboneAPI文档">
-<meta property="og:updated_time" content="2016-04-05T09:17:40.483Z">
+解决问题  移动端webAPP模拟原生应用的各类页面切换效果。
+推荐实践  作者在Mobilebone里提供了多种构造跳转页面的方式，甚至封装了ajax工具方法，以方便实现页面分步加载，但在我我的实践过程中发现还是用它的基本切换">
+<meta property="og:updated_time" content="2016-04-06T06:07:31.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单页面切换插件Mobilebone简介">
 <meta name="twitter:description" content="Mobilebone是国内大牛张旭鑫写的一个单页面切换插件，特点是轻量级，且效果也不错，最近的webAPP项目里用过，暂时没发现有什么坑，特此安利一下，顺便介绍简单用法。
-解决问题参考文档
-项目gitHub主页
-张旭鑫项目介绍
-MobileboneAPI文档">
+解决问题  移动端webAPP模拟原生应用的各类页面切换效果。
+推荐实践  作者在Mobilebone里提供了多种构造跳转页面的方式，甚至封装了ajax工具方法，以方便实现页面分步加载，但在我我的实践过程中发现还是用它的基本切换">
 
 
 
@@ -263,7 +257,18 @@ MobileboneAPI文档">
 
       
         <p>Mobilebone是国内大牛张旭鑫写的一个单页面切换插件，特点是轻量级，且效果也不错，最近的webAPP项目里用过，暂时没发现有什么坑，特此安利一下，顺便介绍简单用法。</p>
-<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>  移动端webAPP模拟原生应用的各类页面切换效果。</p>
+<h2 id="推荐实践"><a href="#推荐实践" class="headerlink" title="推荐实践"></a>推荐实践</h2><p>  作者在Mobilebone里提供了多种构造跳转页面的方式，甚至封装了ajax工具方法，以方便实现页面分步加载，但在我我的实践过程中发现还是用它的基本切换最好：主页面与子页面的结构都在一个HTML文件中，即第一次加载后所有页面实际已都存在，我们做页面切换只是让几个标签元素交替显示。<br>  这个其实作者在自己的博客中也提到了，好处是切换更流畅（只异步请求数据，而不是后台拼接好的HTML），也更容易自己控制。作者原文如下：</p>
+<blockquote>
+<p>虽然Mobilebone提供了直接请求JSON数据的方法，并提供了视图渲染接口。但是，以我个人经验，对于实际开发，这种实现策略是不推荐的。我认为更好的实现方法应该是这样的。页面骨架，也就是page主体，也就是一个空div默认就载入，然后所有的切换都是基本切换，而不是Ajax切换。在切换即将开始的时候（回调），您就可以使用自己，例如Zepto的Ajax方法去请求你需要的JSON数据，做你任何想做的事情，完全没有Mobilebone的限制。</p>
+</blockquote>
+<p>页当然，这样做有一点不好的地方是会影响首次加载速度（毕竟所有HTML结构要在一开始就全部加载），这种基本切换适用于子页面内容相对简单的情况，我的项目中子页面的内容基本上是用js生成出来的，在实际上静态的HTML结构就只有个外壳。<br>html结构：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pageHome"</span> <span class="attr">class</span>=<span class="string">"page in"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pageChild1"</span> <span class="attr">class</span>=<span class="string">"page out"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#pageHome"</span> <span class="attr">data-rel</span>=<span class="string">"back"</span> <span class="attr">class</span>=<span class="string">"backto"</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"backto-mark"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>返回<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pageChild2"</span> <span class="attr">class</span>=<span class="string">"page out"</span>&gt;</span></span><br><span class="line">.....</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如上的HTML结构就是Mobilebone的基本切换所需的基本结构了，每一个page元素为一个页面，我在pageChild1这个子页面中增加了一个返回按钮，href内填写的是’#’+跳转页面的id，data-rel指定了跳转的过场动画为back（默认的页面切换动画只有左右滑动切换）。<br>这样从子页面返回主页面当然是没问题的，因为这时没有请求新数据也不需要回调，但当我们从主页面跳到子页面时应该怎么处理呢？我们需要增加回调函数，如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#pageChild1"</span> <span class="attr">data-reload</span> <span class="attr">data-preventdefault</span>=<span class="string">"getDetails"</span> <span class="attr">id</span>=<span class="string">"xxx"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//主页面只有一处点击跳转时</span></span><br><span class="line">Mobilebone.callback = function(pagein) &#123;</span><br><span class="line">        <span class="keyword">if</span>(pagein.id == <span class="string">"pageDetails"</span>)&#123;</span><br><span class="line">            <span class="comment">//判断进入的页面为子页面</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="comment">//有多处需要跳转时</span></span><br><span class="line">var getDetails = function(target) &#123;</span><br><span class="line">        <span class="keyword">if</span> (target != <span class="keyword">null</span> &amp;&amp; target.id != <span class="string">""</span>) &#123;</span><br><span class="line">            <span class="comment">//target为点击的元素，可用来传递数据</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>当主页面跳转子页面只有一处时可以使用Mobilebone提供的公用的callback方法，通过判断进入的页面是子页面则进行数据ajax请求及解析数据。<br>若有多处跳转，如在列表点击每一项查看详情时则需要data-preventdefault属性指定页面跳转的处理函数，并传入相应的id等参数，同样调用ajax请求数据。</p>
+<h3 id="项目的demo："><a href="#项目的demo：" class="headerlink" title="项目的demo："></a>项目的demo：</h3><p><video width="498" height="510 " src="../MobileboneDemo.avi" poster=" " autoplay="autoplay"><br></video></p>
+<h2 id="主要API"><a href="#主要API" class="headerlink" title="主要API"></a>主要API</h2><p><a href="http://rawgit.com/zhangxinxu/mobilebone/master/test/index.html" target="_blank" rel="external">查看在线demo</a></p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
 <li><a href="https://github.com/zhangxinxu/mobilebone" target="_blank" rel="external">项目gitHub主页</a></li>
 <li><a href="http://www.zhangxinxu.com/wordpress/2014/10/mobilebone-js-mobile-web-app-core/" target="_blank" rel="external">张旭鑫项目介绍</a></li>
 <li><a href="http://rawgit.com/zhangxinxu/mobilebone/develop/docs/Mobilebone.ajax.html" target="_blank" rel="external">MobileboneAPI文档</a></li>
@@ -397,7 +402,7 @@ MobileboneAPI文档">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决问题"><span class="nav-number">1.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">2.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决问题"><span class="nav-number">1.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐实践"><span class="nav-number">2.</span> <span class="nav-text">推荐实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目的demo："><span class="nav-number">2.1.</span> <span class="nav-text">项目的demo：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要API"><span class="nav-number">3.</span> <span class="nav-text">主要API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
             
           </div>
         </section>
